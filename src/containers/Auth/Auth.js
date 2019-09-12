@@ -23,7 +23,14 @@ class Auth extends Component {
         },
         value: ""
       }
-    }
+    },
+    isSignup: true
+  };
+
+  isSignupHandler = () => {
+    this.setState(prevState => {
+      return { isSignup: !prevState.isSignup };
+    });
   };
 
   inputChangedHandler = (event, elementId) => {
@@ -38,6 +45,11 @@ class Auth extends Component {
     this.setState({ fields: updatedFields });
   };
 
+  formSubmitHandler = e => {
+    e.preventDefault();
+    console.log(this.state);
+  };
+
   render() {
     const filedsArr = [];
     for (let key in this.state.fields) {
@@ -45,6 +57,7 @@ class Auth extends Component {
     }
 
     const form = filedsArr.map(element => {
+      console.log(element.config);
       return (
         <Input
           key={element.id}
@@ -59,10 +72,16 @@ class Auth extends Component {
 
     return (
       <div className={classes.Auth}>
+        <h1>{this.state.isSignup ? "Sign up" : "Login"} form</h1>
         <form className={classes.Form}>
           {form}
-          <Button clicked={this.orderHandler}>Submit</Button>
+          <Button clicked={e => this.formSubmitHandler(e)}>Submit</Button>
         </form>
+
+        <Button clicked={this.isSignupHandler}>
+          {" "}
+          Switch to {this.state.isSignup ? "Login" : "Sign up"}
+        </Button>
       </div>
     );
   }
