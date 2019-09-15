@@ -52,10 +52,13 @@ class Auth extends Component {
   formSubmitHandler = e => {
     e.preventDefault();
 
-    this.props.onAuth({
-      email: this.state.fields.email.value,
-      password: this.state.fields.password.value
-    });
+    this.props.onAuth(
+      {
+        email: this.state.fields.email.value,
+        password: this.state.fields.password.value
+      },
+      this.state.isSignup
+    );
   };
 
   render() {

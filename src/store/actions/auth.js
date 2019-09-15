@@ -18,19 +18,22 @@ export const authSuccess = (token, id) => {
 
 export const authFail = error => {
   return {
-    type: actionTypes.AUTH_SUCCESS,
+    type: actionTypes.AUTH_FAIL,
     error
   };
 };
 
-export const auth = data => {
+export const auth = (data, isSignup) => {
   return dispatch => {
     dispatch(authStart());
+    let url = "/signup";
+    if (!isSignup) {
+      url = "/login";
+    }
     axios
-      .post("/signup", data)
+      .post(url, data)
       .then(response => {
-        console.log(response);
-        dispatch(authSuccess(response.token, response.userId));
+        dispatch(authSuccess(response.data.token, response.data.userId));
       })
       .catch(err => {
         dispatch(authFail(err));
