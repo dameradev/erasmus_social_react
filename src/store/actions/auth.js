@@ -23,6 +23,15 @@ export const authFail = error => {
   };
 };
 
+export const logout = () => {
+  localStorage.removeItem("token");
+  // localStorage.removeItem("expirationDate");
+  localStorage.removeItem("userId");
+  return {
+    type: actionTypes.AUTH_LOGOUT
+  };
+};
+
 export const auth = (data, isSignup) => {
   return dispatch => {
     dispatch(authStart());
@@ -33,10 +42,23 @@ export const auth = (data, isSignup) => {
     axios
       .post(url, data)
       .then(response => {
+        localStorage.setItem("token", response.data.token);
+        localStorage.setItem("userId", response.data.userId);
         dispatch(authSuccess(response.data.token, response.data.userId));
       })
       .catch(err => {
         dispatch(authFail(err));
       });
+  };
+};
+
+export const checkAuthState = () => {
+  return dispatch => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      dispatch(logout());
+    }
+    const userId = localStorage.getItem("userId");
+    dispatch(authSuccess(token, userId));
   };
 };
