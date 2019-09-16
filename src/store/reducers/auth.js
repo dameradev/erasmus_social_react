@@ -4,6 +4,7 @@ const initalState = {
   token: null,
   error: null,
   userId: null,
+  users: [],
   loading: false
 };
 
@@ -32,6 +33,17 @@ const reducer = (state = initalState, action) => {
         token: null,
         userId: null,
         loading: false
+      };
+    case actionTypes.GET_USERS_SUCCESS:
+      return {
+        ...state,
+        users: action.users,
+        loading: false
+      };
+    case actionTypes.GET_USERS_FAIL:
+      return {
+        ...state,
+        error: action.error
       };
     default:
       return state;

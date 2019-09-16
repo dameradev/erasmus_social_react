@@ -85,3 +85,27 @@ export const checkAuthState = () => {
     }
   };
 };
+
+export const getUsersSuccess = users => {
+  return {
+    type: actionTypes.GET_USERS_SUCCESS,
+    users
+  };
+};
+export const getUsersFail = error => {
+  return {
+    type: actionTypes.GET_USERS_FAIL,
+    error
+  };
+};
+
+export const getSuggestedUsers = () => {
+  return dispatch => {
+    axios
+      .get("/suggested-users")
+      .then(response => {
+        dispatch(getUsersSuccess(response.data.users));
+      })
+      .catch(err => getUsersFail(err));
+  };
+};

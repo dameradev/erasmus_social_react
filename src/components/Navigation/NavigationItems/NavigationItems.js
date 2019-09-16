@@ -3,9 +3,9 @@ import NavigationItem from "./NavigationItem/NavigationItem";
 
 const navigationItems = props => (
   <ul>
+    <NavigationItem href="/">Home</NavigationItem>
     {!props.isAuthenticated ? (
       <React.Fragment>
-        <NavigationItem href="/">Home</NavigationItem>
         <NavigationItem href="/auth">Log in</NavigationItem>
       </React.Fragment>
     ) : (
