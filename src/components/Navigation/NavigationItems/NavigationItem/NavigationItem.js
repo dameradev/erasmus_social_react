@@ -4,9 +4,11 @@ import { Link } from "react-router-dom";
 import classes from "./NavigationItem.module.css";
 
 const navigationItem = props => (
-  <Link className={classes.NavigationItem} to={props.href}>
-    {props.children}
-  </Link>
+  <li>
+    <Link className={classes.NavigationItem} to={props.href}>
+      {props.children}
+    </Link>
+  </li>
 );
 
 export default navigationItem;

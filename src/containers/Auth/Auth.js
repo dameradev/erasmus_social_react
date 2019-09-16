@@ -68,7 +68,6 @@ class Auth extends Component {
     }
 
     const form = filedsArr.map(element => {
-      console.log(element.config);
       return (
         <Input
           key={element.id}

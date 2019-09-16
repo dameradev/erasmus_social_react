@@ -1,9 +1,9 @@
 import React from "react";
 import NavigationItems from "../Navigation/NavigationItems/NavigationItems";
 
-const toolBar = () => (
+const toolBar = props => (
   <nav>
-    <NavigationItems />
+    <NavigationItems isAuthenticated={props.isAuth} />
   </nav>
 );
 

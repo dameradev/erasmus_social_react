@@ -2,7 +2,6 @@ import React from "react";
 import classes from "./Input.module.css";
 
 const input = props => {
-  console.log(props);
   return (
     <input
       className={classes.input}
