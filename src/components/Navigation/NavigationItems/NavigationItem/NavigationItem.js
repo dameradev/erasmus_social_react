@@ -1,6 +1,12 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const navigationItem = props => <Link to={props.href}>{props.children}</Link>;
+import classes from "./NavigationItem.module.css";
+
+const navigationItem = props => (
+  <Link className={classes.NavigationItem} to={props.href}>
+    {props.children}
+  </Link>
+);
 
 export default navigationItem;
