@@ -13,9 +13,11 @@ class Profile extends Component {
   };
 
   componentDidMount() {
-    axios.get("/user/" + this.props.userId).then(response => {
-      this.setState({ user: response.data.user });
-    });
+    // axios.get("/user/" + this.props.userId).then(response => {
+    //   this.setState({ user: response.data.user });
+    // });
+    // console.log(typeof this.props.userId);
+    this.props.onGetUser(this.props.userId);
     this.props.onGetSuggestedUsers();
   }
 
@@ -28,23 +30,28 @@ class Profile extends Component {
 
   render() {
     let friendRequests;
-    if (this.state.user) {
-      friendRequests = this.state.user.friendRequests.map(friendRequest => {
+    if (this.props.user) {
+      friendRequests = this.props.user.friendRequests.map(friendRequest => {
         return (
-          <form
-            onSubmit={(e, id, currentUserId) =>
-              this.onAcceptRequest(e, friendRequest._id, this.props.userId)
-            }
-          >
+          <div key={friendRequest._id}>
             Friend request from {friendRequest.email}
-            <Button>Accept request</Button>
-          </form>
+            <Button
+              clicked={(id, currentUserId) =>
+                this.props.onAcceptFriendRequest(
+                  friendRequest._id,
+                  this.props.userId
+                )
+              }
+            >
+              Accept request
+            </Button>
+          </div>
         );
       });
     }
     return (
       <div>
-        <h1>{this.state.user ? this.state.user.email : null}</h1>
+        <h1>{this.props.user ? this.props.user.email : null}</h1>
         {friendRequests}
       </div>
     );
@@ -54,13 +61,17 @@ class Profile extends Component {
 const mapStateToProps = state => {
   return {
     userId: state.auth.userId,
-    users: state.auth.users
+    users: state.auth.users,
+    user: state.auth.user
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    onGetSuggestedUsers: () => dispatch(actions.getSuggestedUsers())
+    onGetSuggestedUsers: () => dispatch(actions.getSuggestedUsers()),
+    onAcceptFriendRequest: (id, currentUserId) =>
+      dispatch(actions.acceptFriendRequest(id, currentUserId)),
+    onGetUser: userId => dispatch(actions.getUser(userId))
   };
 };
 

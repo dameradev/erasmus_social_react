@@ -125,14 +125,61 @@ export const getUserFail = error => {
 };
 export const getUser = userId => {
   return dispatch => {
+    console.log(userId);
     axios
-      .get("/user" + userId)
+      .get("/user/" + userId)
       .then(response => {
-        dispatch(getUsersSuccess(response.data.user));
+        console.log(response);
+        dispatch(getUserSuccess(response.data.user));
       })
-      .catch(err => getUsersFail(err));
+      .catch(err => getUserFail(err));
   };
 };
+
+export const acceptFriendRequestSuccess = (id, currentUserId) => {
+  return {
+    type: actionTypes.ACCEPT_FRIEND_REQUEST_SUCCESS,
+    id,
+    currentUserId
+  };
+};
+
+export const acceptFriendRequestFail = error => {
+  return {
+    type: actionTypes.ACCEPT_FRIEND_REQUEST_FAIL,
+    error
+  };
+};
+
+export const acceptFriendRequest = (id, currentUserId) => {
+  getUser();
+  return dispatch => {
+    axios
+      .post("/accept-request", { id, currentUserId })
+      .then(response =>
+        dispatch(
+          acceptFriendRequestSuccess(
+            response.data.userToAddId,
+            response.data.currentUserId
+          )
+        )
+      );
+  };
+};
+
+// export const addFriendSuccess = friendId => {
+//   return {
+//     type: actionTypes.ADD_FRIEND_SUCCESS,
+//     friendId
+//   };
+// };
+
+// export const addFriendFail = error => {
+//   return {
+//     type: actionTypes.ADD_FRIEND_FAIL,
+//     error
+//   };
+// };
 
 // export const addFriend = (currentUserId, userId) => {
 //   return dispatch => {
@@ -142,6 +189,6 @@ export const getUser = userId => {
 //     };
 //     axios
 //       .post("/add-friend", addFriendData)
-//       .then(response => console.log(response));
+//       .then(response => addFriendSuccess(response.data));
 //   };
 // };

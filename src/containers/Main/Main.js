@@ -23,20 +23,24 @@ class Main extends Component {
   };
 
   render() {
-    const suggestedUsers = this.props.users.map(user => {
-      return (
-        <div key={user._id}>
-          <p>{user.email}</p>
-          <Button
-            clicked={(currentUserId, userId) =>
-              this.addFriend(this.props.currentUserId, user._id)
-            }
-          >
-            Add friend
-          </Button>
-        </div>
-      );
-    });
+    console.log(this.props.users);
+    let suggestedUsers;
+    if (this.props.users) {
+      suggestedUsers = this.props.users.map(user => {
+        return (
+          <div key={user._id}>
+            <p>{user.email}</p>
+            <Button
+              clicked={(currentUserId, userId) =>
+                this.addFriend(this.props.currentUserId, user._id)
+              }
+            >
+              Add friend
+            </Button>
+          </div>
+        );
+      });
+    }
     return (
       <div className={classes.Main}>
         <h1>HomePage</h1>
@@ -56,8 +60,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     onGetSuggestedUsers: () => dispatch(actions.getSuggestedUsers())
-    //   onAddFriend: (currentUserId, userId) =>
-    //     dispatch(actions.addFriend(currentUserId, userId))
+    // onAddFriend: (currentUserId, userId) =>
+    //   dispatch(actions.addFriend(currentUserId, userId))
   };
 };
 
