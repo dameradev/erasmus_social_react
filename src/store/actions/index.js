@@ -1,1 +1,2 @@
-export { auth, checkAuthState, logout, getSuggestedUsers } from "./auth";
+export { auth, checkAuthState, logout, getSuggestedUsers } from // addFriend
+"./auth";

@@ -109,3 +109,39 @@ export const getSuggestedUsers = () => {
       .catch(err => getUsersFail(err));
   };
 };
+
+export const getUserSuccess = user => {
+  return {
+    type: actionTypes.GET_USER_SUCCESS,
+    user
+  };
+};
+
+export const getUserFail = error => {
+  return {
+    type: actionTypes.GET_USER_FAIL,
+    error
+  };
+};
+export const getUser = userId => {
+  return dispatch => {
+    axios
+      .get("/user" + userId)
+      .then(response => {
+        dispatch(getUsersSuccess(response.data.user));
+      })
+      .catch(err => getUsersFail(err));
+  };
+};
+
+// export const addFriend = (currentUserId, userId) => {
+//   return dispatch => {
+//     const addFriendData = {
+//       currentUserId,
+//       userId
+//     };
+//     axios
+//       .post("/add-friend", addFriendData)
+//       .then(response => console.log(response));
+//   };
+// };

@@ -9,7 +9,10 @@ const navigationItems = props => (
         <NavigationItem href="/auth">Log in</NavigationItem>
       </React.Fragment>
     ) : (
-      <NavigationItem href="/logout">Logout</NavigationItem>
+      <React.Fragment>
+        <NavigationItem href="/profile">Profile</NavigationItem>
+        <NavigationItem href="/logout">Logout</NavigationItem>
+      </React.Fragment>
     )}
   </ul>
 );
