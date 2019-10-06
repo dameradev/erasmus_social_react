@@ -6,6 +6,7 @@ import Layout from "./hoc/Layout/Layout";
 import Main from "./containers/Main/Main";
 import Auth from "./containers/Auth/Auth";
 import Profile from "./containers/Profile/Profile";
+import Project from "./containers/Project/Project";
 import Logout from "./containers/Auth/Logout/Logout";
 
 import * as actions from "./store/actions/index";
@@ -22,6 +23,7 @@ class App extends React.Component {
             <Route path="/auth" component={Auth} />
             <Route path="/profile" component={Profile} />
             <Route path="/logout" component={Logout} />
+            <Route path="/projects" component={Project} />
             <Route path="/" component={Main} />
           </Switch>
         </Layout>
